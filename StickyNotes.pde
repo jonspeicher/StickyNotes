@@ -5,11 +5,10 @@ import processing.video.*;
 Capture capture;
 Minim minim;
 AudioOutput lineOut;
-SquareWave squareWave;
-  
-int triggerX = -1, triggerY = -1;
-color triggerColor;
-int triggerThreshold = 15;
+ArrayList triggers;
+
+float[] frequencies = { 261.63, 293.66, 329.63, 349.23, 392.00 };
+int nextFrequency = 0;
 
 void setup()
 {
@@ -17,7 +16,7 @@ void setup()
   capture = new Capture(this, width, height, 30);
   minim = new Minim(this);
   lineOut = minim.getLineOut(Minim.STEREO, 512);
-  squareWave = new SquareWave(440, 1, 44100);
+  triggers = new ArrayList();
 }
 
 void stop()
@@ -38,39 +37,23 @@ void draw()
     popMatrix();
   }
   
-  if (triggerSet())
+  for (int i = 0; i < triggers.size(); i++)
   {
-    color currentColor = get(triggerX, triggerY);
+    Trigger trigger = (Trigger) triggers.get(i);
     
-    if (triggerThresholdExceeded(currentColor, triggerColor))
+    if (trigger.thresholdExceeded())
     {
-      trigger();
+      trigger.trigger();
+    }
+    else
+    {
+      trigger.untrigger();
     }
   }
 }
 
 void mouseClicked()
 {
-  triggerX = mouseX;
-  triggerY = mouseY;
-  triggerColor = get(triggerX, triggerY);
-}
-
-boolean triggerSet()
-{
-  return ((triggerX >= 0) && (triggerY >= 0));
-}
-
-boolean triggerThresholdExceeded(color currentColor, color triggerColor)
-{
-  float deltaRed = abs(red(currentColor) - red(triggerColor));
-  float deltaGreen = abs(green(currentColor) - green(triggerColor));
-  float deltaBlue = abs(blue(currentColor) - blue(triggerColor));
-  return (deltaRed > triggerThreshold) || (deltaGreen > triggerThreshold) || (deltaBlue > triggerThreshold);
-}
-
-void trigger()
-{
-  println("TRIGGER!");
-  lineOut.addSignal(squareWave);
+  triggers.add(new Trigger(mouseX, mouseY, get(mouseX, mouseY), lineOut, frequencies[nextFrequency]));
+  nextFrequency = (nextFrequency + 1) % frequencies.length;
 }
