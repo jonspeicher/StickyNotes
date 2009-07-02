@@ -5,8 +5,8 @@ import processing.video.*;
 Capture capture;
 Minim minim;
 AudioOutput lineOut;
-ArrayList triggers;
 
+ArrayList triggers;
 float[] frequencies = { 261.63, 293.66, 329.63, 349.23, 392.00 };
 int nextFrequency = 0;
 
@@ -50,6 +50,7 @@ void draw()
       trigger.untrigger();
     }
   }
+  
 }
 
 void mouseClicked()

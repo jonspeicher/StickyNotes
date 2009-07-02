@@ -20,7 +20,7 @@ class Trigger
     lineOut = out;
     sineWave = new SineWave(frequency, 1.0, lineOut.sampleRate());
     
-    println("Added new trigger x = " + x + " y = " + y + " color = " + triggerColor);
+    println("Added new trigger x = " + x + " y = " + y + " color = " + triggerColor + " freq = " + frequency);
   }
   
   boolean set()
@@ -39,10 +39,9 @@ class Trigger
   
   void trigger()
   {
-    println("TRIGGER: " + sineWave.frequency());
-    
     if (!triggered)
     {
+      println("TRIGGER: " + sineWave.frequency());
       lineOut.addSignal(sineWave);
       triggered = true;
     }
@@ -52,6 +51,7 @@ class Trigger
   {
     if (triggered)
     {
+      println("UNTRIGGER: " + sineWave.frequency());
       lineOut.removeSignal(sineWave);
       triggered = false;
     }
