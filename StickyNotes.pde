@@ -9,7 +9,8 @@ AudioOutput lineOut;
 ArrayList triggers;
 ArrayList selectors;
 
-float[] frequencies = { 261.63, 293.66, 329.63, 349.23, 392.00 };
+float[] frequencies = { 261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88 };
+String[] frequencyLabels = { "C", "D", "D", "F", "G", "A", "B" };
 int nextFrequency = 0;
 
 void setup()
@@ -27,7 +28,7 @@ void setup()
   
   for (int i = 0; i < frequencies.length; i++)
   {
-    selectors.add(new Selector((cellWidth / 2) + (i * cellWidth), height - 25, 30, 30, "A"));
+    selectors.add(new Selector((cellWidth / 2) + (i * cellWidth), height - 25, 30, 30, frequencyLabels[i]));
   }
 }
 
