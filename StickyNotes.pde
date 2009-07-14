@@ -26,7 +26,19 @@ void stop()
   super.stop();
 }
 
+void mouseClicked()
+{
+  triggers.add(new Trigger(mouseX, mouseY, get(mouseX, mouseY), lineOut, frequencies[nextFrequency]));
+  nextFrequency = (nextFrequency + 1) % frequencies.length;
+}
+
 void draw() 
+{
+  drawCapture();
+  processTriggers();
+}
+
+void drawCapture()
 {
   if (capture.available())
   {
@@ -36,7 +48,10 @@ void draw()
     image(capture, -capture.width, 0);
     popMatrix();
   }
-  
+}
+
+void processTriggers()
+{
   for (int i = 0; i < triggers.size(); i++)
   {
     Trigger trigger = (Trigger) triggers.get(i);
@@ -50,11 +65,4 @@ void draw()
       trigger.untrigger();
     }
   }
-  
-}
-
-void mouseClicked()
-{
-  triggers.add(new Trigger(mouseX, mouseY, get(mouseX, mouseY), lineOut, frequencies[nextFrequency]));
-  nextFrequency = (nextFrequency + 1) % frequencies.length;
 }
