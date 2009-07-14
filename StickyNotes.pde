@@ -10,8 +10,8 @@ ArrayList triggers;
 ArrayList selectors;
 
 float[] frequencies = { 261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88 };
-String[] frequencyLabels = { "C", "D", "D", "F", "G", "A", "B" };
-int nextFrequency = 0;
+String[] frequencyLabels = { "C", "D", "E", "F", "G", "A", "B" };
+int nextFrequencyIndex = 0;
 
 void setup()
 {
@@ -41,10 +41,23 @@ void stop()
 
 void mouseClicked()
 {
-  // TBD: Iterate through selectors looking for a hit before adding a trigger, if hit, select proper frequency
-  // and set it into nextFrequency
-  triggers.add(new Trigger(mouseX, mouseY, get(mouseX, mouseY), lineOut, frequencies[nextFrequency]));
-  nextFrequency = (nextFrequency + 1) % frequencies.length;
+  boolean selectorHit = false;
+  
+  for (int i = 0; i < selectors.size(); i++)
+  {
+    Selector selector = (Selector) selectors.get(i);
+    
+    if (selector.hit(mouseX, mouseY))
+    {
+      nextFrequencyIndex = i;
+      selectorHit = true;
+    }
+  }
+  
+  if (!selectorHit)
+  {
+    triggers.add(new Trigger(mouseX, mouseY, get(mouseX, mouseY), lineOut, frequencies[nextFrequencyIndex]));
+  }
 }
 
 void draw() 

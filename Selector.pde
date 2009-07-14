@@ -18,6 +18,24 @@ class Selector
     textAlign(CENTER);
   }
   
+  boolean hit(int x, int y)
+  {
+    int minX = centerX - (width / 2);
+    int maxX = centerX + (width / 2);
+    int minY = centerY - (height / 2);
+    int maxY = centerY + (height / 2);
+    
+    if ((x >= minX) && (x <= maxX) && (y >= minY) && (y <= maxY))
+    {
+      println("Selected " + label);
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+  
   void draw()
   {
     noStroke();
