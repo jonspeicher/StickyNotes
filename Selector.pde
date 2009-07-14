@@ -2,6 +2,7 @@ class Selector
 {
   int centerX, centerY;
   int width, height;
+  int minX, maxX, minY, maxY;
   String label;
   PFont font;
 
@@ -13,18 +14,18 @@ class Selector
     height = h;
     label = l;
     
+    minX = centerX - (width / 2);
+    maxX = centerX + (width / 2);
+    minY = centerY - (height / 2);
+    maxY = centerY + (height / 2);
+    
     font = loadFont("Helvetica-12.vlw");
     textFont(font);
     textAlign(CENTER);
   }
   
   boolean hit(int x, int y)
-  {
-    int minX = centerX - (width / 2);
-    int maxX = centerX + (width / 2);
-    int minY = centerY - (height / 2);
-    int maxY = centerY + (height / 2);
-    
+  { 
     if ((x >= minX) && (x <= maxX) && (y >= minY) && (y <= maxY))
     {
       println("Selected " + label);
