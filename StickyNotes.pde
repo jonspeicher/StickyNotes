@@ -7,16 +7,28 @@ Minim minim;
 AudioOutput lineOut;
 
 ArrayList triggers;
+ArrayList selectors;
+
 float[] frequencies = { 261.63, 293.66, 329.63, 349.23, 392.00 };
 int nextFrequency = 0;
 
 void setup()
 {
-  size(640, 480);
-  capture = new Capture(this, width, height, 30);
+  size(640, 530);
+  capture = new Capture(this, width, height - 50, 30);
+  
   minim = new Minim(this);
   lineOut = minim.getLineOut(Minim.STEREO, 512);
+  
   triggers = new ArrayList();
+  
+  selectors = new ArrayList();
+  int cellWidth = width / frequencies.length;
+  
+  for (int i = 0; i < frequencies.length; i++)
+  {
+    selectors.add(new Selector((cellWidth / 2) + (i * cellWidth), height - 25, 30, 30, "A"));
+  }
 }
 
 void stop()
@@ -28,6 +40,8 @@ void stop()
 
 void mouseClicked()
 {
+  // TBD: Iterate through selectors looking for a hit before adding a trigger, if hit, select proper frequency
+  // and set it into nextFrequency
   triggers.add(new Trigger(mouseX, mouseY, get(mouseX, mouseY), lineOut, frequencies[nextFrequency]));
   nextFrequency = (nextFrequency + 1) % frequencies.length;
 }
@@ -35,6 +49,7 @@ void mouseClicked()
 void draw() 
 {
   drawCapture();
+  drawSelectors();
   processTriggers();
 }
 
@@ -47,6 +62,15 @@ void drawCapture()
     scale(-1.0, 1.0);
     image(capture, -capture.width, 0);
     popMatrix();
+  }
+}
+
+void drawSelectors()
+{
+  for (int i = 0; i < selectors.size(); i++)
+  {
+    Selector selector = (Selector) selectors.get(i);
+    selector.draw();
   }
 }
 
