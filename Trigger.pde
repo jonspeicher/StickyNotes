@@ -1,3 +1,7 @@
+// This class represents a very simple trigger.  It monitors the color value of a single pixel
+// on the display and if the value changes by a certain threshold, it generates an audio
+// output frequency.
+
 class Trigger
 {
   int x;
@@ -21,11 +25,6 @@ class Trigger
     sineWave = new SineWave(frequency, 1.0, lineOut.sampleRate());
     
     println("Added new trigger x = " + x + " y = " + y + " color = " + triggerColor + " freq = " + frequency);
-  }
-  
-  boolean set()
-  {
-    return (x >= -1) && (y >= -1);
   }
   
   boolean thresholdExceeded()

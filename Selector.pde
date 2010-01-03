@@ -1,3 +1,6 @@
+// This class represents a selector.  It's a simple on-screen control that draws
+// itself and knows its own boundaries for hit detection.
+
 class Selector
 {
   int centerX, centerY;
