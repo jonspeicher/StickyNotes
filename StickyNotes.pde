@@ -1,12 +1,15 @@
 // StickyNotes
-// by Jon Speicher (jon.speicher@gmail.com)
+// Copyright (c) 2009 Jonathan Speicher
+// jon.speicher@gmail.com
+// Licensed under the MIT license: http://creativecommons.org/licenses/MIT
 //
-// Click a note, then click a point in the video (a bright, unchanging color like a
-// sticky note on a wall works best).  Cover the sticky note with your hand to play
-// the note.
+// Click a note, then click a point in the video (a bright, unchanging color
+// like a sticky note on a wall works best).  Cover the sticky note with your 
+// hand to play the note.
 //
-// The program isn't all that smart; changing lighting conditions, moving your camera,
-// etcetera will all produce disastrous results.  Chords don't work all that well either.
+// The program isn't all that smart; changing lighting conditions, moving your 
+// camera, etcetera will all produce disastrous results.  Chords don't work all 
+// that well either.
 
 import ddf.minim.*;
 import ddf.minim.signals.*;
@@ -16,14 +19,15 @@ Capture capture;
 Minim minim;
 AudioOutput lineOut;
 
-// Triggers are the video points that, when the camera sees their color change, play
-// notes.  Selectors allow the assignment of a note to a trigger.
+// Triggers are the video points that, when the camera sees their color change,
+// play notes.  Selectors allow the assignment of a note to a trigger.
 
 ArrayList triggers;
 ArrayList selectors;
 
-// These are the frequencies of a few notes starting at middle C, and a variable
-// to keep track of which frequency is currently selected when assigning triggers.
+// These are the frequencies of a few notes starting at middle C, and a 
+// variable to keep track of which frequency is currently selected when 
+// assigning triggers.
 
 float[] frequencies = { 261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88 };
 String[] frequencyLabels = { "C", "D", "E", "F", "G", "A", "B" };
@@ -86,8 +90,8 @@ void mouseClicked()
     }
   }
   
-  // If the mouse wasn't clicked on a selector, it's defining a new trigger with
-  // the last selected frequency.
+  // If the mouse wasn't clicked on a selector, it's defining a new trigger 
+  // with the last selected frequency.
   
   if (!selectorHit)
   {
@@ -112,8 +116,8 @@ void drawCapture()
   {
     capture.read();
     
-    // Invert the display (like a reflection in a mirror) to make moving
-    // more intuitive.
+    // Invert the display (like a reflection in a mirror) to make moving more
+    // intuitive.
     
     pushMatrix();
     scale(-1.0, 1.0);

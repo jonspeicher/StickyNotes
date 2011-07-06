@@ -1,5 +1,10 @@
-// This class represents a selector.  It's a simple on-screen control that draws
-// itself and knows its own boundaries for hit detection.
+// StickyNotes
+// Copyright (c) 2009 Jonathan Speicher
+// jon.speicher@gmail.com
+// Licensed under the MIT license: http://creativecommons.org/licenses/MIT
+//
+// This class represents a selector.  It's a simple on-screen control that 
+// draws itself and knows its own boundaries for hit detection.
 
 class Selector
 {
