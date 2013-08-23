@@ -41,6 +41,7 @@ void setup()
   
   size(640, 530);
   capture = new Capture(this, width, height - 50, 30);
+  capture.start();
   
   // 512 is the buffer size for the line output.
   
